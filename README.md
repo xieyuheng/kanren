@@ -29,6 +29,7 @@ Hindley-Milner type inference relation, which relates a term in a lambda-calculu
 This file illustrates the use of the typechecking relation (see above) for proving theorems in intuitionistic and classical logics.
 
 [mini/leanTAP.scm](mini/leanTAP.scm)
+
 leanTAP theorem prover by Bernhard Beckert and Joachim Posegga. The miniKanren implementation uses higher-order syntax (to avoid copy_term) and an advanced evaluator that removes the need for explicit iterative deepening.
 
 [examples/zebra.scm](examples/zebra.scm)
