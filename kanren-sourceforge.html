@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+<title>A declarative logic programming system</title>
+<meta name="description" content="An applicative logic programming system with a
+declarative set-theoretical semantics, and its applications">
+<meta name="AuthorAddress" content="oleg-at-okmij.org">
+<meta name="keywords" content="Logic Programming, meta-logic programming, relations,
+iterative deepening, proof assistant, Scheme">
+<meta name="Date-Revision-yyyymmdd" content="20090310">
+<meta name="Date-Creation-yyyymmdd" content="20040121"></head><body bgcolor="#FFFFFF">
+
+<p>
+<hr size="1" noshade>
+<div align="center">
+<a href="http://kanren.sourceforge.net">Home</a>&nbsp;|&nbsp;
+<a href="#Documentation">Docs</a>&nbsp;|&nbsp;
+<a href="#Sample">Sample</a>&nbsp;|&nbsp;
+<a href="#Availability">Availability</a>&nbsp;|&nbsp;
+<a href="http://sourceforge.net/cvs/?group_id=99654">CVS</a>&nbsp;|&nbsp;
+<a href="http://sourceforge.net/projects/kanren/">Summary</a>&nbsp;|&nbsp;</div>
+<hr size="1" noshade>
+<br></p><h1 align=center>A declarative applicative logic programming system</h1>
+
+<a href="http://sourceforge.net/projects/kanren"> 
+<img src="http://sflogo.sourceforge.net/sflogo.php?group_id=99654&amp;type=9" width="80" height="15" border="0" alt="Get A declarative logic programming system at
+   SourceForge.net. Fast, secure and Free Open Source software downloads"></a>
+<p>
+<em>KANREN</em> is a declarative logic programming system with
+first-class relations, embedded in a pure functional subset of Scheme.
+The system has a set-theoretical semantics, true unions, fair
+scheduling, first-class relations, lexically-scoped logical variables,
+depth-first and iterative deepening strategies.  The system achieves
+high performance and expressivity without cuts.</p>
+<p>Applications of the system range from expert systems to
+polymorphic type inference and overloading resolution, to model
+checking and theorem proving. The system can be used as a meta-logic
+system.</p>
+<p>
+<em>KANREN</em> works on any computer platform for which a
+Scheme implementation exists (from PalmPilot and iPAQ to
+Unix/Linux/Winxx/Mac workstations and servers to MindLego bricks). The
+system can be compiled or interpreted. Being essentially a Scheme
+library, KANREN can interact with the user through any graphical or
+command-line interface provided by the host Scheme implementation.</p>
+<ul>
+<li>
+<a href="#Sample">Sample applications</a></li>
+<li>
+<a href="#mini">miniKANREN</a></li>
+<li>
+<a href="#Documentation">Documentation and tutorials</a></li>
+<li>
+<a href="#Availability">Availability</a>
+<ul>
+<li>
+<a href="#CVS">CVS Tree</a></li>
+<li>
+<a href="#Distributions">Distributions</a></li></ul></li>
+<li>
+<a href="http://sourceforge.net/projects/kanren">KANREN project summary page at SourceForge</a></li></ul><br>&nbsp;<a name="Sample">&nbsp;</a>
+<h3>Sample applications</h3>
+
+<dl>
+<dt>
+<a href="http://kanren.cvs.sourceforge.net/kanren/kanren/mini/type-inference.scm">
+<code>mini/type-inference.scm</code></a></dt>
+<dd>Hindley-Milner type inference 
+<em>relation</em>, which
+relates a term in a lambda-calculus with fixpoint, polymorphic let,
+sums and products -- and its type. The relation can be used for type
+inference (determining the type for a term), type checking (making
+sure that a term is of the given type), and term 
+reconstruction (constructing a term that has the desired type).  We may
+also specify a part of the term and a part of the type, and ask the
+system to fill in
+the rest. In the latter applications, this code acts as a theorem
+prover in intuitionistic logic.</dd>
+<dt>
+<a href="http://kanren.cvs.sourceforge.net/kanren/kanren/mini/logic.scm">
+<code>mini/logic.scm</code></a></dt>
+<dd>This file illustrates the use of the typechecking relation (see
+above) for proving theorems in intuitionistic and classical logics.</dd>
+<dt>
+<a href="http://kanren.cvs.sourceforge.net/kanren/kanren/mini/leanTAP.scm">
+<code>mini/leanTAP.scm</code></a></dt>
+<dd>leanTAP theorem prover by Bernhard Beckert and Joachim
+Posegga.  The miniKanren implementation uses higher-order syntax (to
+avoid 
+<code>copy_term</code>) and an advanced evaluator that removes
+the need for explicit iterative deepening.</dd>
+<dt>
+<a href="http://kanren.cvs.sourceforge.net/kanren/kanren/examples/zebra.scm">
+<code>examples/zebra.scm</code></a></dt>
+<dd>The classic Zebra puzzle</dd>
+<dt>
+<a href="http://kanren.cvs.sourceforge.net/kanren/kanren/examples/mirror.scm">
+<code>examples/mirror.scm</code></a></dt>
+<dd>Structural induction proof.  We write an outline of an
+inductive proof that mirroring a binary tree twice is the identity
+transformation. The system fills out details and verifies that the
+conclusion of the proof indeed follows from the given axioms. KANREN
+is used as a meta-logic system to implement a backwards-chaining proof
+verifier.</dd>
+<dt>
+<a href="http://kanren.cvs.sourceforge.net/kanren/kanren/examples/mirror-equ.scm">
+<code>examples/mirror-equ.scm</code></a></dt>
+<dd>Structural induction proof in equational theory. We can
+truly write the equivalence axioms, including the symmetry axiom
+
+<code>(myeq a b) |- (myeq b a)</code>. Try to do that in Prolog!</dd>
+<dt>
+<a href="http://kanren.cvs.sourceforge.net/kanren/kanren/examples/typeclasses.scm">
+<code>examples/typeclasses.scm</code></a></dt>
+<dd>Functional dependency satisfaction in Haskell typeclasses
+and deriving counter-examples.  Overloading resolution for
+Haskell typeclasses in open and closed worlds.  Our method can
+typecheck more programs than it is currently possible in Haskell.</dd>
+<dt>
+<a href="http://kanren.cvs.sourceforge.net/kanren/kanren/examples/deduction.scm">
+<code>examples/deduction.scm</code></a></dt>
+<dd>Proving the Deduction Theorem for Hilbert Propositional Calculus
+ by induction. The example also demonstrates generating inductive hypotheses.</dd>
+<dt>
+<a href="http://kanren.cvs.sourceforge.net/kanren/kanren/examples/pure-bin-arithm.scm">
+<code>examples/pure-bin-arithm.scm</code></a></dt>
+<dd>Pure, declarative, and constructive binary arithmetics:
+Addition, multiplication, division with the remainder as sound and
+complete, 
+<em>pure</em>, declarative relations that can be used in
+any mode and that recursively enumerate their domains. The relations
+define arithmetics over base-2 non-negative numerals of 
+<em>arbitrary</em> size. If 
+<code>z</code> is instantiated but 
+<code>x</code> and 
+<code>y</code> are not, 
+<code>(++o x y z)</code> delivers
+all non-negative numbers that add to 
+<code>z</code> and 
+<code>(**o
+x y z)</code> computes 
+<em>all</em> factorizations of 
+<code>z</code>.</dd>
+<dt>
+<a href="http://kanren.cvs.sourceforge.net/kanren/kanren/benchmarks/">
+<code>benchmarks/</code></a></dt>
+<dd>Standard Prolog benchmarks: nrev, query, qsort, queens, etc. --
+re-written for KANREN.</dd></dl><br>&nbsp;<a name="mini">&nbsp;</a>
+<h3>miniKANREN</h3>
+
+<p>miniKANREN is a simplified KANREN without many bells, whistles,
+and optimizations of the full system. The goal of the simplifications was
+to make miniKANREN easier to explain. Many tutorials below are specifically
+miniKANREN tutorials. Incidentally, miniKANREN is quite efficient.</p>
+<dl>
+<dt>
+<a href="http://kanren.cvs.sourceforge.net/kanren/kanren/mini/mk.scm">
+<code>mini/mk.scm</code></a></dt>
+<dd>The complete implementation (used in the book).</dd>
+<dt>
+<a href="http://kanren.cvs.sourceforge.net/kanren/kanren/mini/mkextraforms.scm">
+<code>mini/mkextraforms.scm</code></a></dt>
+<dd>Extra forms appearing in the framenotes of the book.</dd>
+<dt>
+<a href="http://kanren.cvs.sourceforge.net/kanren/kanren/mini/mkprelude.scm">
+<code>mini/mkprelude.scm</code></a></dt>
+<dd>Useful definitions from the book.</dd>
+<dt>
+<a href="http://kanren.cvs.sourceforge.net/kanren/kanren/mini/mktests.scm">
+<code>mini/mktests.scm</code></a></dt>
+<dd>All the examples used in the book.</dd></dl><br>&nbsp;<a name="Documentation">&nbsp;</a>
+<h3>Documentation and tutorials</h3>
+
+<p>
+<em>The Reasoned Schemer</em>
+<br>Daniel P. Friedman, William E. Byrd and Oleg Kiselyov
+<br>MIT Press, Cambridge, MA, 2005.</p><br>&nbsp;<a name="Availability">&nbsp;</a>
+<h3>Availability</h3>
+
+<p>The current version of KANREN is 4.50. KANREN is OpenSource,
+distributed under the MIT license.</p>
+<p>KANREN has been tested on the following Scheme systems:
+<br>Petite Chez Scheme, Chez Scheme, SCM, Gauche.</p>
+<p>mini-KANREN has been tested on the following Scheme systems:
+<br>Petite Chez Scheme, Chez Scheme, SCM, Gauche, 
+PLT Scheme/DrScheme v209 and v299.400.</p><br>&nbsp;<a name="Distributions">&nbsp;</a>
+<h3>Distributions</h3>
+
+<p>KANREN download site at SourceForge:
+<br>&lt;
+<a href="http://sf.net/project/showfiles.php?group_id=99654">http://sf.net/project/showfiles.php?group_id=99654</a>&gt;</p><br>&nbsp;<a name="CVS">&nbsp;</a>
+<h3>CVS Tree</h3>
+
+<p>
+<a href="http://sourceforge.net/cvs/?group_id=99654">The CVS Tree</a> includes the complete KANREN and mini-KANREN code, extensive
+documentation, a tutorial, validation tests, as well as several sample
+applications.</p>
+<p>You can 
+<a href="http://kanren.cvs.sourceforge.net/kanren">browse the files in the CVS tree</a> from any web browser.</p>
+<br>
+<div>
+<hr></div>
+<h3>Last updated March 10, 2009</h3>
+<div>
+<address>oleg-at-pobox.com or oleg-at-acm.org or oleg-at-computer.org
+<br>Your comments, problem reports, questions are very welcome!</address></div>
+<p>
+<font size="-2">Converted from SXML by SXML-&gt;HTML</font></p></body></html>
